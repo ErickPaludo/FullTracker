@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:FullLocator.ViewModels"
+             x:Class="FullLocator.Views.ViewHome">
+
+    <ContentPage.BindingContext>
+        <vm:HomeVM />
+    </ContentPage.BindingContext>
+    <VerticalStackLayout Spacing="50">
+        <Border WidthRequest="200" HeightRequest="50" StrokeShape="RoundRectangle 100" Margin="0,20,0,0">
+            <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
+                <Label Text="Carga:" VerticalOptions="Center" />
+                <Entry Text="{Binding Carga.Ncarga}" IsEnabled="{Binding Entryenable}"  Keyboard="Numeric" WidthRequest="100" HorizontalTextAlignment="Center" MaxLength="8" TextColor="Black"/>
+            </StackLayout>
+        </Border>
+
+        <Button WidthRequest="100" Text="{Binding Btntext}" FontAttributes="Bold" FontSize="18"  BackgroundColor="{Binding Btnstart}" Command="{Binding ChangedBtnColorCommand}" x:Name="teste"/>
+
+        <Border IsVisible="{Binding Borderenabled}"  WidthRequest="300" HeightRequest="60" StrokeShape="RoundRectangle 20" Margin="0,20,0,0">
+            <StackLayout Padding="10" Orientation="Horizontal" Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
+                <Label Text="Latitude:" VerticalOptions="Center"  />
+                <Label Text="{Binding Carga.Latitude}" VerticalOptions="Center" />
+            </StackLayout>
+        </Border>
+
+        <Border IsVisible="{Binding Borderenabled}" WidthRequest="300" HeightRequest="60" StrokeShape="RoundRectangle 20" Margin="0,20,0,0">
+            <StackLayout Padding="10" Orientation="Horizontal" Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
+                <Label Text="Longitude:" VerticalOptions="Center"  />
+                <Label Text="{Binding Carga.Longitude}" VerticalOptions="Center" />
+            </StackLayout>
+        </Border>
+
+    </VerticalStackLayout>
+</ContentPage>
