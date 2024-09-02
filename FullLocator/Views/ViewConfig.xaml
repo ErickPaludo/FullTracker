@@ -1,12 +1,41 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:FullLocator.ViewModels"
              x:Class="FullLocator.Views.ViewConfig"
              Title="ViewConfig">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+    <ContentPage.BindingContext>
+        <vm:ConfigVM />
+    </ContentPage.BindingContext>
+    <VerticalStackLayout Spacing="10" TranslationY="10">
+
+        <Border WidthRequest="300" HeightRequest="50" StrokeShape="RoundRectangle 100" Background="White">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="10">
+                <Label Text="Precisão de localização:" VerticalOptions="Center"></Label>
+                <Picker
+                Title="Selecione uma opção"
+                    HorizontalTextAlignment="Center" WidthRequest="85">
+                    <Picker.Items>
+                        <x:String>Baixa</x:String>
+                        <x:String>Média</x:String>
+                        <x:String>Alta</x:String>
+                    </Picker.Items>
+                </Picker>
+            </StackLayout>
+        </Border>
+        <Border WidthRequest="350" HeightRequest="58" StrokeShape="RoundRectangle 100" Background="White" Padding="10">
+            <StackLayout Orientation ="Horizontal" HorizontalOptions="Center" >
+                <Label Text="Tempo de atualização: " VerticalOptions="Center"/>
+                <Entry Text="{Binding Dados.time}" WidthRequest="200" Keyboard="Numeric" MaxLength="5"/>
+            </StackLayout>
+        </Border>
+        <Border WidthRequest="400" HeightRequest="58" StrokeShape="RoundRectangle 100" Background="White" Padding="10">
+            <StackLayout Orientation ="Horizontal" HorizontalOptions="Center" >
+                <Label Text="Conexão http: " VerticalOptions="Center"></Label>
+                <Entry Text="{Binding Dados.http_api}" WidthRequest="400" Keyboard="Numeric" MaxLength="5"></Entry>
+            </StackLayout>
+        </Border>
+        <Button Command="{Binding AddCommand}" Text="Salvar" FontSize="18" WidthRequest="100"></Button>
+
     </VerticalStackLayout>
 </ContentPage>

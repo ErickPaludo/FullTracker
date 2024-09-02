@@ -1,4 +1,6 @@
-﻿using FullLocator.Views.Menu;
+﻿using FullLocator.Models;
+using FullLocator.Models.Armazenamento;
+using FullLocator.Views.Menu;
 #if ANDROID
 using FullLocator.Platforms.Android;
 #endif
@@ -23,9 +25,11 @@ namespace FullLocator
 #if ANDROID
    builder.Services.AddTransient<IServiceTest, DemoServices>();
 #endif
+
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
+            builder.Services.AddSingleton<IDataService, DataService>();
 
             return builder.Build();
         }

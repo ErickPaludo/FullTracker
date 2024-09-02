@@ -10,16 +10,21 @@ using System.Threading.Tasks;
 using Microsoft.Maui.Graphics;
 using ProjetoMuai;
 using FullLocator.Views;
+using FullLocator.Models.Armazenamento;
 
 namespace FullLocator.ViewModels
 {
     public partial class MenuVM : ObservableObject
     {
         private readonly INavigation _navigation;
-
+        private readonly IDataService _service;
         public MenuVM(INavigation navigation)
         {
             _navigation = navigation;
+        }
+        public MenuVM(IDataService service)
+        {
+            _service = service;
         }
 
         public MenuVM()
@@ -29,10 +34,8 @@ namespace FullLocator.ViewModels
         [RelayCommand]
         private async Task Config() 
         {
-            var viewHomePage = new ViewHome();
-
-            // Navega para a ViewHome
-            await _navigation.PushAsync(viewHomePage);
+            NavigationPage navpage = (NavigationPage)App.Current.MainPage;
+            navpage.PushAsync(new ViewConfig(_service));
         }
     }
 }

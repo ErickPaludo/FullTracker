@@ -12,6 +12,6 @@
             Text="Conteudo do menu"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        <Button Text="Configurações"/>
+        <Button Text="Configurações" Command="{Binding ConfigCommand}"/>
     </VerticalStackLayout>
 </ContentPage>

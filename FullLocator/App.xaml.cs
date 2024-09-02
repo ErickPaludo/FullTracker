@@ -1,14 +1,15 @@
-﻿using FullLocator.Views.Menu;
+﻿using FullLocator.Models.Armazenamento;
+using FullLocator.Views.Menu;
 
 namespace FullLocator
 {
     public partial class App : Application
     {
-        public App()
+        public App(IDataService dataservice)
         {
             InitializeComponent();
 
-            MainPage = new ViewMenu();
+            MainPage = new NavigationPage(new ViewMenu(dataservice));
         }
     }
 }

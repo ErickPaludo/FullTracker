@@ -4,7 +4,7 @@
              xmlns:pages="clr-namespace:FullLocator.Views"
              xmlns:content="clr-namespace:FullLocator.Views.Menu"
              x:Class="FullLocator.Views.Menu.ViewMenu"
-             Title="ViewMenu">
+             FlyoutLayoutBehavior="Popover">
 
     <FlyoutPage.Flyout>
         <content:ViewContentMenu/>
