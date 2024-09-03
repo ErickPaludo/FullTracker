@@ -10,6 +10,7 @@ namespace FullLocator.ViewModels
 {
     public partial class ConfigVM : ObservableObject
     {
+        private readonly IDataService _dataService;
         [ObservableProperty]
         private List<DataConfig> _data;
 
@@ -27,47 +28,37 @@ namespace FullLocator.ViewModels
 
         public ConfigVM(IDataService service)
         {
-            try
+            Dados = new DataConfig();
+            AddCommand = new Command(async () =>
             {
-                Dados = new DataConfig(); // Inicializa Dados
+                await service.InitilizeAsync();
+                await service.AddData(Dados);
+                await Refresh(service);
+            });
 
-                AddCommand = new Command(async () => await ExecuteAddCommand(service));
-                UpdateCommand = new Command(async () => await ExecuteUpdateCommand(service));
-                DeleteCommand = new Command(async () => await ExecuteDeleteCommand(service));
-                DisplayCommand = new Command(async () => await Refresh(service));
-            }
-            catch (Exception ex)
+            UpdateCommand = new Command(async () =>
             {
-                // Logar ou exibir o erro
-                System.Diagnostics.Debug.WriteLine($"Erro ao inicializar ConfigVM: {ex.Message}");
-            }
-        }
+                await service.InitilizeAsync();
+                await service.UpdateData(Dados);
+                await Refresh(service);
+            });
 
-        private async Task ExecuteAddCommand(IDataService service)
-        {
-            await service.InitilizeAsync();
-            await service.AddData(Dados);
-            await Refresh(service);
-        }
-
-        private async Task ExecuteUpdateCommand(IDataService service)
-        {
-            await service.InitilizeAsync();
-            await service.UpdateData(Dados);
-            await Refresh(service);
-        }
-
-        private async Task ExecuteDeleteCommand(IDataService service)
-        {
-            await service.InitilizeAsync();
-
-            var resposta = await App.Current.MainPage.DisplayAlert("Alerta", "Confirma exclusão?", "Sim", "Não");
-            if (resposta)
+            DeleteCommand = new Command(async () =>
             {
-                await service.DeleteData(Dados);
-            }
+                await service.InitilizeAsync();
 
-            await Refresh(service);
+                var resposta = await App.Current.MainPage.DisplayAlert("Alerta", "Confirma exclusão ?", "Sim", "Não");
+                if (resposta)
+                    await service.DeleteData(Dados);
+
+                await Refresh(service);
+            });
+
+            DisplayCommand = new Command(async () =>
+            {
+                await service.InitilizeAsync();
+                await Refresh(service);
+            });
         }
 
         private async Task Refresh(IDataService service)

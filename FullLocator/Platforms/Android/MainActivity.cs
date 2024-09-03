@@ -61,7 +61,7 @@ namespace FullLocator
             }
             while (true)
             {
-                var storageStatus = await Permissions.RequestAsync<Permissions.StorageWrite>();
+                var storageStatus = await Permissions.RequestAsync<Permissions.Media>();
                 if (storageStatus == PermissionStatus.Granted)
                 {
                     break;

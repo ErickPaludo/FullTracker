@@ -16,8 +16,8 @@ namespace FullLocator.ViewModels
 {
     public partial class MenuVM : ObservableObject
     {
-        private readonly INavigation _navigation;
-        private readonly IDataService _service;
+        private  readonly INavigation _navigation;
+        private static IDataService _service;
         public MenuVM(INavigation navigation)
         {
             _navigation = navigation;

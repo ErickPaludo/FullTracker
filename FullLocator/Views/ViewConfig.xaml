@@ -26,16 +26,46 @@
         <Border WidthRequest="350" HeightRequest="58" StrokeShape="RoundRectangle 100" Background="White" Padding="10">
             <StackLayout Orientation ="Horizontal" HorizontalOptions="Center" >
                 <Label Text="Tempo de atualização: " VerticalOptions="Center"/>
-                <Entry Text="{Binding Dados.time}" WidthRequest="200" Keyboard="Numeric" MaxLength="5"/>
+                <Entry Text="{Binding Dados.time, Mode=TwoWay}" WidthRequest="200" Keyboard="Numeric" MaxLength="5"/>
             </StackLayout>
         </Border>
         <Border WidthRequest="400" HeightRequest="58" StrokeShape="RoundRectangle 100" Background="White" Padding="10">
             <StackLayout Orientation ="Horizontal" HorizontalOptions="Center" >
                 <Label Text="Conexão http: " VerticalOptions="Center"></Label>
-                <Entry Text="{Binding Dados.http_api}" WidthRequest="400" Keyboard="Numeric" MaxLength="5"></Entry>
+                <Entry Text="{Binding Dados.http_api, Mode=TwoWay}" WidthRequest="400" Keyboard="Numeric" MaxLength="5"></Entry>
             </StackLayout>
         </Border>
-        <Button Command="{Binding AddCommand}" Text="Salvar" FontSize="18" WidthRequest="100"></Button>
+        <Button Command="{Binding DisplayCommand}" Text="Salvar" FontSize="18" WidthRequest="100"></Button>
+
+
+        <CollectionView
+        Grid.Row="1" Margin="5"
+        ItemsSource="{Binding Data}"
+        SelectedItem="{Binding Dados}"
+        SelectionMode="Single">
+            <CollectionView.ItemTemplate>
+
+                <DataTemplate>
+
+                    <SwipeView>
+                        <SwipeView.LeftItems>
+                            <SwipeItems>
+                                <SwipeItem
+                                BackgroundColor="Purple"        
+                                Text="Deleta" />
+                            </SwipeItems>
+                        </SwipeView.LeftItems>
+
+                        <Grid ColumnDefinitions=".4*,.6*">
+                            <Label Text="{Binding time}" FontSize="15" />
+                            <Label Grid.Column="1" Text="{Binding http_api}" FontSize="15" TextColor="Blue" />
+                        </Grid>
+
+                    </SwipeView>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
     </VerticalStackLayout>
 </ContentPage>
