@@ -11,6 +11,8 @@ using Microsoft.Maui.Graphics;
 using ProjetoMuai;
 using FullLocator.Views;
 using FullLocator.Models.Armazenamento;
+using System.Reflection;
+using System.Diagnostics;
 
 namespace FullLocator.ViewModels
 {
@@ -18,6 +20,12 @@ namespace FullLocator.ViewModels
     {
         private  readonly INavigation _navigation;
         private static IDataService _service;
+
+        private static Assembly assembly = Assembly.GetExecutingAssembly();
+
+        [ObservableProperty]
+        private string version = $"Versão do app: {assembly.ToString()}";
+
         public MenuVM(INavigation navigation)
         {
             _navigation = navigation;

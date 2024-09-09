@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:FullLocator.ViewModels"
-             x:Class="FullLocator.Views.Menu.ViewContentMenu"
-             Title="ViewContentMenu">
+<ContentPage
+    x:Class="FullLocator.Views.Menu.ViewContentMenu"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:FullLocator.ViewModels"
+    Title="ViewContentMenu">
     <ContentPage.BindingContext>
         <vm:MenuVM />
     </ContentPage.BindingContext>
-    <VerticalStackLayout>
-        <Label 
-            Text="Conteudo do menu"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Button Text="Configurações" Command="{Binding ConfigCommand}"/>
-    </VerticalStackLayout>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Button
+             Grid.Row="0"
+            Margin="10"
+            Command="{Binding ConfigCommand}"
+            Text="Configurações" />
+        <Label
+             Grid.Row="2"
+            Text="{Binding Version}"
+            HorizontalOptions="End" />
+    </Grid>
 </ContentPage>

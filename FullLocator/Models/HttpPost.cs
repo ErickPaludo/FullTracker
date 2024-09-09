@@ -4,38 +4,44 @@ using System.Linq;
 using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
+using FullLocator;
 using FullLocator.Models;
+using FullLocator.Models.Armazenamento;
+using Microsoft.Maui.Controls.PlatformConfiguration;
 using Newtonsoft.Json;
 
 namespace ProjetoMuai
 {
-    class HttpPost
+    public partial class HttpPost : ObservableObject
     {
-        public HttpPost()
+        private static string https = string.Empty;
+
+        [ObservableProperty]
+        private List<DataConfig> _data;
+
+        public HttpPost(string https_)
         {
-           
+            https = https_;
         }
+
         public async Task Post(Carga info)
         {
-            try
+
+            var httpClient = new HttpClient();
+            var request = new HttpRequestMessage();
+
+            var obj = new { carga = info.Ncarga, longitude = info.Longitude.Replace(",", "."), latitude = info.Latitude.Replace(",", ".") };
+
+            var content = ToRequest(obj);
+
+            var response = await httpClient.PostAsync(https, content);
+
+            if (!response.IsSuccessStatusCode)
             {
-                var httpClient = new HttpClient();
-                var request = new HttpRequestMessage();
-
-                var obj = new { carga = info.Ncarga, longitude = info.Longitude.Replace(",","."), latitude = info.Latitude.Replace(",", ".") };
-
-                var content = ToRequest(obj);
-
-                var response = await httpClient.PostAsync("http://172.25.100.14:8787/api/cargas", content);
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    Console.WriteLine($"Erro na solicitação: {response.StatusCode}");
-                }
+                throw new InvalidOperationException("");
             }
-            catch (Exception ex) 
-            { 
-            }
+
         }
         private static StringContent ToRequest(object obj)
         {

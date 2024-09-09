@@ -3,18 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:FullLocator.ViewModels"
              x:Class="FullLocator.Views.ViewConfig"
-             Title="ViewConfig">
+             Title="Configurações">
     <ContentPage.BindingContext>
         <vm:ConfigVM />
     </ContentPage.BindingContext>
-    <VerticalStackLayout Spacing="10" TranslationY="10">
+    <VerticalStackLayout Spacing="5" TranslationY="10">
 
-        <Border WidthRequest="300" HeightRequest="50" StrokeShape="RoundRectangle 100" Background="White">
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="10">
-                <Label Text="Precisão de localização:" VerticalOptions="Center"></Label>
+        <Border Margin="10,0,10,0" HeightRequest="50" StrokeShape="RoundRectangle 10" Background="White">
+            <StackLayout Orientation="Horizontal"  Spacing="10">
+                <Label Margin="10,0,0,0"  Text="Precisão de localização:" VerticalOptions="Center"></Label>
                 <Picker
-                Title="Selecione uma opção"
-                    HorizontalTextAlignment="Center" WidthRequest="85">
+                    SelectedItem="{Binding Dados.location_precision}"
+                    Title="Selecione uma opção"
+                    HorizontalTextAlignment="Center" 
+                    HorizontalOptions="FillAndExpand">
                     <Picker.Items>
                         <x:String>Baixa</x:String>
                         <x:String>Média</x:String>
@@ -23,49 +25,19 @@
                 </Picker>
             </StackLayout>
         </Border>
-        <Border WidthRequest="350" HeightRequest="58" StrokeShape="RoundRectangle 100" Background="White" Padding="10">
-            <StackLayout Orientation ="Horizontal" HorizontalOptions="Center" >
-                <Label Text="Tempo de atualização: " VerticalOptions="Center"/>
-                <Entry Text="{Binding Dados.time, Mode=TwoWay}" WidthRequest="200" Keyboard="Numeric" MaxLength="5"/>
+        <Border Padding="10" Margin="10,0,10,0" HeightRequest="60" StrokeShape="RoundRectangle 10" Background="White">
+            <StackLayout Orientation ="Horizontal">
+                <Label Text="Atualização em minutos:" VerticalOptions="Center" HorizontalOptions="Center"/>
+                <Entry Text="{Binding Dados.time, Mode=TwoWay}" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Keyboard="Numeric" MaxLength="5"/>
             </StackLayout>
         </Border>
-        <Border WidthRequest="400" HeightRequest="58" StrokeShape="RoundRectangle 100" Background="White" Padding="10">
-            <StackLayout Orientation ="Horizontal" HorizontalOptions="Center" >
-                <Label Text="Conexão http: " VerticalOptions="Center"></Label>
-                <Entry Text="{Binding Dados.http_api, Mode=TwoWay}" WidthRequest="400" Keyboard="Numeric" MaxLength="5"></Entry>
+        <Border  Padding="10" Margin="10,0,10,0" HeightRequest="60" StrokeShape="RoundRectangle 10" Background="White">
+            <StackLayout Orientation ="Horizontal" >
+                <Label Text="Conexão http: " VerticalOptions="Center" HorizontalOptions="Start"></Label>
+                <Entry Text="{Binding Dados.http_api, Mode=TwoWay}" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" MaxLength="250"></Entry>
             </StackLayout>
         </Border>
-        <Button Command="{Binding DisplayCommand}" Text="Salvar" FontSize="18" WidthRequest="100"></Button>
-
-
-        <CollectionView
-        Grid.Row="1" Margin="5"
-        ItemsSource="{Binding Data}"
-        SelectedItem="{Binding Dados}"
-        SelectionMode="Single">
-            <CollectionView.ItemTemplate>
-
-                <DataTemplate>
-
-                    <SwipeView>
-                        <SwipeView.LeftItems>
-                            <SwipeItems>
-                                <SwipeItem
-                                BackgroundColor="Purple"        
-                                Text="Deleta" />
-                            </SwipeItems>
-                        </SwipeView.LeftItems>
-
-                        <Grid ColumnDefinitions=".4*,.6*">
-                            <Label Text="{Binding time}" FontSize="15" />
-                            <Label Grid.Column="1" Text="{Binding http_api}" FontSize="15" TextColor="Blue" />
-                        </Grid>
-
-                    </SwipeView>
-
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+        <Button Command="{Binding SalvarCommand}" Text="Salvar" FontSize="18" WidthRequest="100"></Button>
 
     </VerticalStackLayout>
 </ContentPage>

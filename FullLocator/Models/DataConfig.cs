@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,17 +11,16 @@ using System.Threading.Tasks;
 
 namespace FullLocator.Models
 {
-    [Table("tb_config")]
+    [SQLite.Table("tb_config")]
     public partial class DataConfig 
     {
-        [MaxLength(8),NotNull]
-        public string ncarga { get; set; }
-
-        [NotNull]
+        [PrimaryKey,AutoIncrement]
+        public int id { get; set; }
+        [SQLite.NotNull]
         public string http_api { get; set; }
-
-        public int location_precision { get; set; }
-        [MaxLength(5), NotNull]
+        [SQLite.MaxLength(12), SQLite.NotNull]
+        public string location_precision { get; set; }
+        [SQLite.MaxLength(5), SQLite.NotNull]
         public int time { get; set; }
 
         public DataConfig()

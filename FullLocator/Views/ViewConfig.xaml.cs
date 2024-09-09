@@ -7,8 +7,8 @@ public partial class ViewConfig : ContentPage
 {
     private readonly IDataService _sqliteService;
     public ViewConfig(IDataService sqliteService)
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
         _sqliteService = sqliteService;
         BindingContext = new ConfigVM(_sqliteService);
     }

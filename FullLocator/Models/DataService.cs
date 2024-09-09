@@ -22,6 +22,7 @@ namespace FullLocator.Models
             {
                 string dpPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Data.db3");
                 _dbConnection = new SQLiteAsyncConnection(dpPath);
+                ///data/user/0/com.companyname.fulllocator/files/Data.db3
                 await _dbConnection.CreateTableAsync<DataConfig>();
             }
         }
@@ -38,16 +39,23 @@ namespace FullLocator.Models
 
         public async Task<int> UpdateData(DataConfig data)
         {
-            return await _dbConnection.UpdateAsync(data);
+            if (data.id == 1)
+            {
+                return await _dbConnection.UpdateAsync(data);
+            }
+            else
+            {
+                throw new ArgumentException("");
+            }
         }
 
         public async Task<List<DataConfig>> GetDataConfigAsync()
         {
             return await _dbConnection.Table<DataConfig>().ToListAsync();
         }
-        public async Task<DataConfig> GetData(int carga)
+        public async Task<DataConfig> GetData(int id)
         {
-            return await _dbConnection.Table<DataConfig>().FirstOrDefaultAsync(x => x.ncarga == carga.ToString());
+            return await _dbConnection.Table<DataConfig>().FirstOrDefaultAsync(x => x.id == id);
         }
 
       
