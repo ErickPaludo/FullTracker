@@ -3,6 +3,8 @@ using CommunityToolkit.Mvvm.Input;
 using FullLocator.Models;
 using FullLocator.Models.Armazenamento;
 using FullLocator.Views;
+using FullLocator.Views.Menu;
+using Microsoft.Maui.Animations;
 using Microsoft.Maui.ApplicationModel.Communication;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,7 +22,7 @@ namespace FullLocator.ViewModels
 
         [ObservableProperty]
         private DataConfig dados;
-        public ObservableCollection<DataConfig> Info { get; set; }
+        public ObservableCollection<DataConfig> Info;
 
         private readonly INavigation _navigation;
 
@@ -29,24 +31,34 @@ namespace FullLocator.ViewModels
         public ICommand DeleteCommand { get; }
         public ICommand DisplayCommand { get; }
 
+
+
         [RelayCommand]
         private async void Salvar()
         {
-            if (!string.IsNullOrEmpty(Dados.time.ToString()) && !string.IsNullOrEmpty(Dados.http_api) && !string.IsNullOrEmpty(Dados.location_precision))
+            if (!string.IsNullOrEmpty(Dados.time.ToString()) && !string.IsNullOrEmpty(Dados.http_api) && !string.IsNullOrEmpty(Dados.location_precision) && !string.IsNullOrEmpty(Dados.placa.ToString()))
             {
                 if (Dados.time > 0)
                 {
-                    if (Data.Count >= 1)
+                    if (Dados.placa.ToString().Length == 7)
                     {
-                        UpdateCommand.Execute(null);
+                        if (Data.Count >= 1)
+                        {
+                            UpdateCommand.Execute(null);
+                        }
+                        else
+                        {
+                            AddCommand.Execute(null);
+                        }
+                        await App.Current.MainPage.DisplayAlert("Sucesso!", "Configuração salva com sucesso!", "OK");
+                        NavigationPage navpage = (NavigationPage)App.Current.MainPage;
+                        await navpage.PopToRootAsync();
+                        await navpage.PushAsync(new ViewMenu(_dataService));
                     }
                     else
                     {
-                        AddCommand.Execute(null);
+                        await App.Current.MainPage.DisplayAlert("Erro", "Placa incompleta!", "OK");
                     }
-                    await App.Current.MainPage.DisplayAlert("Sucesso!", "Configuração salva com sucesso!", "OK");
-                    NavigationPage navpage = (NavigationPage)App.Current.MainPage;
-                    await navpage.PopAsync();
                 }
                 else
                 {
@@ -116,7 +128,8 @@ namespace FullLocator.ViewModels
                         id = obj.id,
                         location_precision = obj.location_precision,
                         http_api = obj.http_api,
-                        time = obj.time
+                        time = obj.time,
+                        placa = obj.placa
                     };
                 }
                 

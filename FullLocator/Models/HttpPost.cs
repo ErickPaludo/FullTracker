@@ -25,13 +25,13 @@ namespace ProjetoMuai
             https = https_;
         }
 
-        public async Task Post(Carga info)
+        public async Task Post(string placa,Carga info)
         {
 
             var httpClient = new HttpClient();
             var request = new HttpRequestMessage();
 
-            var obj = new { carga = info.Ncarga, longitude = info.Longitude.Replace(",", "."), latitude = info.Latitude.Replace(",", ".") };
+            var obj = new { placa = placa, longitude = info.Longitude.Replace(",", "."), latitude = info.Latitude.Replace(",", ".") };
 
             var content = ToRequest(obj);
 

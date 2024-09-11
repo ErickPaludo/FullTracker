@@ -20,11 +20,12 @@ namespace FullLocator.ViewModels
     {
         private  readonly INavigation _navigation;
         private static IDataService _service;
+        public static bool exect { get; set; }
 
-        private static Assembly assembly = Assembly.GetExecutingAssembly();
-
+        private static readonly Assembly assembly = Assembly.GetExecutingAssembly();
         [ObservableProperty]
-        private string version = $"Versão do app: {assembly.ToString()}";
+        private string version = $"Versão do app: {assembly.GetName().Version.ToString()}";
+
 
         public MenuVM(INavigation navigation)
         {
@@ -42,8 +43,15 @@ namespace FullLocator.ViewModels
         [RelayCommand]
         private async Task Config() 
         {
-            NavigationPage navpage = (NavigationPage)App.Current.MainPage;
-            navpage.PushAsync(new ViewConfig(_service));
+            if (!exect)
+            {
+                NavigationPage navpage = (NavigationPage)App.Current.MainPage;
+                navpage.PushAsync(new ViewConfig(_service));
+            }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert("Erro", "O rastrador está ativo no momento, não é possível acessar configurações", "OK");
+            }
         }
     }
 }

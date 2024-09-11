@@ -22,7 +22,6 @@ namespace FullLocator.Models
             {
                 string dpPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Data.db3");
                 _dbConnection = new SQLiteAsyncConnection(dpPath);
-                ///data/user/0/com.companyname.fulllocator/files/Data.db3
                 await _dbConnection.CreateTableAsync<DataConfig>();
             }
         }

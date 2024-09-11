@@ -1,22 +1,30 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:FullLocator.ViewModels"
-             x:Class="FullLocator.Views.ViewConfig"
-             Title="Configurações">
+<ContentPage
+    x:Class="FullLocator.Views.ViewConfig"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:FullLocator.ViewModels"
+    Title="Configurações">
     <ContentPage.BindingContext>
         <vm:ConfigVM />
     </ContentPage.BindingContext>
     <VerticalStackLayout Spacing="5" TranslationY="10">
 
-        <Border Margin="10,0,10,0" HeightRequest="50" StrokeShape="RoundRectangle 10" Background="White">
-            <StackLayout Orientation="Horizontal"  Spacing="10">
-                <Label Margin="10,0,0,0"  Text="Precisão de localização:" VerticalOptions="Center"></Label>
+        <Border
+            Margin="10,0,10,0"
+            Background="White"
+            HeightRequest="50"
+            StrokeShape="RoundRectangle 10">
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <Label
+                    Margin="10,0,0,0"
+                    Text="Precisão de localização:"
+                    VerticalOptions="Center" />
                 <Picker
-                    SelectedItem="{Binding Dados.location_precision}"
                     Title="Selecione uma opção"
-                    HorizontalTextAlignment="Center" 
-                    HorizontalOptions="FillAndExpand">
+                    HorizontalOptions="FillAndExpand"
+                    HorizontalTextAlignment="Center"
+                    SelectedItem="{Binding Dados.location_precision}">
                     <Picker.Items>
                         <x:String>Baixa</x:String>
                         <x:String>Média</x:String>
@@ -25,19 +33,68 @@
                 </Picker>
             </StackLayout>
         </Border>
-        <Border Padding="10" Margin="10,0,10,0" HeightRequest="60" StrokeShape="RoundRectangle 10" Background="White">
-            <StackLayout Orientation ="Horizontal">
-                <Label Text="Atualização em minutos:" VerticalOptions="Center" HorizontalOptions="Center"/>
-                <Entry Text="{Binding Dados.time, Mode=TwoWay}" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Keyboard="Numeric" MaxLength="5"/>
+        <Border
+            Margin="10,0,10,0"
+            Padding="10"
+            Background="White"
+            HeightRequest="60"
+            StrokeShape="RoundRectangle 10">
+            <StackLayout Orientation="Horizontal">
+                <Label
+                    HorizontalOptions="Center"
+                    Text="Atualização em minutos:"
+                    VerticalOptions="Center" />
+                <Entry
+                    HorizontalOptions="FillAndExpand"
+                    HorizontalTextAlignment="Center"
+                    Keyboard="Numeric"
+                    MaxLength="5"
+                    Text="{Binding Dados.time, Mode=TwoWay}" />
             </StackLayout>
         </Border>
-        <Border  Padding="10" Margin="10,0,10,0" HeightRequest="60" StrokeShape="RoundRectangle 10" Background="White">
-            <StackLayout Orientation ="Horizontal" >
-                <Label Text="Conexão http: " VerticalOptions="Center" HorizontalOptions="Start"></Label>
-                <Entry Text="{Binding Dados.http_api, Mode=TwoWay}" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" MaxLength="250"></Entry>
+        <Border
+            Margin="10,0,10,0"
+            Padding="10"
+            Background="White"
+            HeightRequest="60"
+            StrokeShape="RoundRectangle 10">
+            <StackLayout Orientation="Horizontal">
+                <Label
+                    FontSize="15"
+                    HorizontalOptions="Start"
+                    Text="Conexão: "
+                    VerticalOptions="Center" />
+                <Entry
+                    Margin="-1"
+                    HorizontalOptions="FillAndExpand"
+                    HorizontalTextAlignment="Center"
+                    MaxLength="250"
+                    Text="{Binding Dados.http_api, Mode=TwoWay}" />
             </StackLayout>
         </Border>
-        <Button Command="{Binding SalvarCommand}" Text="Salvar" FontSize="18" WidthRequest="100"></Button>
+        <Border
+            Margin="10,0,10,0"
+            Padding="10"
+            Background="White"
+            HeightRequest="60"
+            StrokeShape="RoundRectangle 10">
+            <StackLayout Orientation="Horizontal">
+                <Label
+                    HorizontalOptions="Start"
+                    Text="Placa do veículo "
+                    VerticalOptions="Center" />
+                <Entry
+                    HorizontalOptions="FillAndExpand"
+                    HorizontalTextAlignment="Center"
+                    MaxLength="7"
+                    Text="{Binding Dados.placa, Mode=TwoWay}" />
+            </StackLayout>
+        </Border>
+        <Button
+            Command="{Binding SalvarCommand}"
+            FontSize="18"
+            Text="Salvar"
+            WidthRequest="100" />
 
     </VerticalStackLayout>
 </ContentPage>

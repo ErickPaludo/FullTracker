@@ -11,8 +11,7 @@ public partial class ViewMenu : FlyoutPage
 		InitializeComponent();
 		_sqliteService = sqliteService;
 		BindingContext = new MenuVM(_sqliteService);
-		new HomeVM(_sqliteService);
-	}
+    }
 
     public ViewMenu()
     {

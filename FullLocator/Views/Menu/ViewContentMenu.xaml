@@ -21,6 +21,7 @@
             Text="Configurações" />
         <Label
              Grid.Row="2"
+            Margin="10"
             Text="{Binding Version}"
             HorizontalOptions="End" />
     </Grid>

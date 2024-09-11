@@ -38,7 +38,7 @@ namespace FullLocator.ViewModels
         private Carga carga;
 
         [ObservableProperty]
-        private Color btnstart = Colors.Orange;
+        private string placa;
 
         [ObservableProperty]
         private string btntext = "Iniciar";
@@ -55,9 +55,8 @@ namespace FullLocator.ViewModels
         [RelayCommand]
         private async void ChangedBtnColor()
         {
-            if (!string.IsNullOrEmpty(Carga.Ncarga))
+            if (!string.IsNullOrEmpty(Placa))
             {
-                Carga.Ncarga = Carga.Ncarga.Replace("-", "").Replace(",", "").Replace(".", "").Replace(" ", ""); //Solução temporária
                 DisplayCommand(_service);
                 Loading = true;
                 Buttonenabled = false;
@@ -68,42 +67,39 @@ namespace FullLocator.ViewModels
             }
         }
 
+
         public HomeVM()
         {
-            Carga = new Carga();
+            DisplayCommand(_service);
         }
-
         public HomeVM(IDataService service)
         {
             _service = service;
-            Carga = new Carga();
         }
 
         private void LocalLizacao()
         {
-
+            Carga = new Carga();
             if (cancellationTokenSource != null)
             {
                 // Cancela a tarefa se estiver ativa
                 cancellationTokenSource.Cancel();
                 cancellationTokenSource = null;
-                Btnstart = Colors.Orange;
                 Btntext = "Iniciar";
                 Entryenable = true;
                 Borderenabled = false;
+                MenuVM.exect = false;
             }
             else
             {
                 // Inicia a tarefa de localização
                 cancellationTokenSource = new CancellationTokenSource();
                 _ = GetLocal(cancellationTokenSource.Token); // Inicia a tarefa de forma assíncrona
-                Btnstart = Colors.Gray;
                 Btntext = "Encerrar";
                 Entryenable = false;
                 Borderenabled = true;
+                MenuVM.exect = true;
             }
-
-
         }
 
         private async Task DisplayCommand(IDataService service)
@@ -116,7 +112,9 @@ namespace FullLocator.ViewModels
                 time = obj.time * 60000;
                 precisao = obj.location_precision;
                 http = new HttpPost(obj.http_api);
+                Placa = obj.placa.ToString();
             }
+
             else
             {
                 await App.Current.MainPage.DisplayAlert("Erro", "Http da API não está preenchido!", "OK");
@@ -164,7 +162,7 @@ namespace FullLocator.ViewModels
                     {
                         Carga.Latitude = location.Latitude.ToString();
                         Carga.Longitude = location.Longitude.ToString();
-                        await http.Post(new Carga(Carga.Ncarga.ToString(), location.Latitude.ToString(), location.Longitude.ToString()));
+                        await http.Post(Placa,new Carga(location.Latitude.ToString(), location.Longitude.ToString()));
                     }
 
                     await Task.Delay(time, token);
@@ -176,6 +174,7 @@ namespace FullLocator.ViewModels
                 {
                     await App.Current.MainPage.DisplayAlert("Erro", "Link da API inválido!", "OK");
 
+                    LocalLizacao();
 
                     NavigationPage navpage = (NavigationPage)App.Current.MainPage;
                     navpage.PushAsync(new ViewConfig(_service));

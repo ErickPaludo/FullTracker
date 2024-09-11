@@ -22,6 +22,8 @@ namespace FullLocator.Models
         public string location_precision { get; set; }
         [SQLite.MaxLength(5), SQLite.NotNull]
         public int time { get; set; }
+        [SQLite.MaxLength(7), SQLite.NotNull]
+        public string placa { get; set; }
 
         public DataConfig()
         {

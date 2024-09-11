@@ -4,10 +4,11 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vm="clr-namespace:FullLocator.ViewModels"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     NavigationPage.HasNavigationBar="False">
 
     <ContentPage.BindingContext>
-        <vm:HomeVM />
+        <vm:HomeVM/>
     </ContentPage.BindingContext>
     <VerticalStackLayout Spacing="10">
         <Image Source="full" />
@@ -23,7 +24,7 @@
                 VerticalOptions="Center">
                 <Label
                     FontSize="16"
-                    Text="Carga:"
+                    Text="Placa:"
                     VerticalOptions="Center" />
                 <Entry
                     FontSize="16"
@@ -31,7 +32,8 @@
                     IsEnabled="{Binding Entryenable}"
                     Keyboard="Numeric"
                     MaxLength="8"
-                    Text="{Binding Carga.Ncarga}"
+                    IsReadOnly="True"
+                    Text="{Binding Placa}"
                     TextColor="Black"
                     WidthRequest="100" />
             </StackLayout>
@@ -42,7 +44,6 @@
             Text="Carregando" />
         <Button
             x:Name="teste"
-            BackgroundColor="{Binding Btnstart}"
             Command="{Binding ChangedBtnColorCommand}"
             IsEnabled="{Binding Buttonenabled}"
             FontAttributes="Bold"

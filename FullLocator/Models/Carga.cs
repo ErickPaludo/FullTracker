@@ -9,8 +9,7 @@ namespace FullLocator.Models
 {
     public partial class Carga : ObservableObject
     {
-        [ObservableProperty]
-        private string ncarga;
+
         [ObservableProperty]
         private string longitude; 
         [ObservableProperty]
@@ -20,17 +19,10 @@ namespace FullLocator.Models
         {
         }
 
-        public Carga(string ncarga, string latitude, string longitude)
+        public Carga(string latitude, string longitude)
         {
-            Ncarga = ncarga;
             Latitude = latitude;
             Longitude = longitude;          
-        }
-
-        public Carga(string longitude, string latitude)
-        {
-            Longitude = longitude;
-            Latitude = latitude;
         }
     }
 }
